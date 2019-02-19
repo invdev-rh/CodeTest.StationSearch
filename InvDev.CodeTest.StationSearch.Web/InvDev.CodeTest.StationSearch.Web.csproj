@@ -26,6 +26,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>14.0</OldToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -149,8 +150,6 @@
     <None Include="Content\bootstrap-theme.css.map" />
     <None Include="Content\bootstrap.css.map" />
     <None Include="packages.config" />
-    <None Include="Scripts\jquery-3.1.0.min.map" />
-    <None Include="Scripts\jquery-3.1.0.slim.min.map" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
@@ -174,12 +173,8 @@
       <DependentUpon>Site.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\jquery-3.1.0.intellisense.js" />
-    <Content Include="Scripts\jquery-3.1.0.js" />
-    <Content Include="Scripts\jquery-3.1.0.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\script.outdated.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InvDev.CodeTest.StationSearch.Service\InvDev.CodeTest.StationSearch.Service.csproj">

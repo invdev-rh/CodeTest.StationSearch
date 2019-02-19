@@ -1,53 +1,67 @@
 ﻿function filterStations(e) {
-    var url = "api/Stations?filter=";
-    $.ajax({
-        url: url + e + '"',
-        dataType: 'json'
-    }).done(function (data) {
-        $('.btn').each(function () {
-            var btn = $(this);
-            var found = false;
-            $.each(data.NextPossibleCharacters, function (i, obj) {
-                if (obj == btn.text()) {
-                    found = true;
-                    return;
+    var url = "/api/Stations?filter=";
+  
+
+    fetch(url + e + '"')
+        .then(function (response) { return response.json() })
+        .then(function (data) {
+
+            Array.from(document.getElementsByClassName('btn')).forEach(function (btn) {
+                
+                var found = false;
+                data.NextPossibleCharacters.forEach(function (c) {
+                    if (c == btn.innerHTML) {
+                        found = true;
+                        return;
+                    }
+                });
+                if (found) {
+                    btn.removeAttribute('disabled');
+                } else {
+                    btn.setAttribute('disabled', 'disabled');
                 }
-            });
-            if (found) {
-                btn.removeAttr('disabled');
-            } else {
-                btn.attr('disabled', 'disabled');
-            }
-            $('#searchResults > tbody').empty();
-            $.each(data.Stations, function (i, obj) {
-                $('#searchResults').append('<tr><td>' + obj + '</td></tr>');
-            });
+                document.querySelector('#searchResults > tbody').innerHTML= '';
+                data.Stations.forEach(function (s) {
+                    var row = document.createElement('tr');
+                    row.innerHTML = '<td>' + s + '</td>';
+                    document.querySelector('#searchResults > tbody').appendChild(row);
+                 });
         });
     });
 }
 
 function changeStationNameFilterText(newfilter) {
-    $('#stationName').val(newfilter);
-    $("#stationName").trigger("change");
-    if ($('#stationName').val().length > 0) {
-        $('.backspaceBtn').removeAttr('disabled');
+    document.getElementById('stationName').value = newfilter;
+    document.getElementById('stationName').dispatchEvent(new Event('change'))
+    if (document.getElementById('stationName').value.length > 0) {
+        document.querySelector('.backspaceBtn').removeAttribute('disabled');
     } else {
-        $('.backspaceBtn').attr('disabled', 'disabled');
+        document.querySelector('.backspaceBtn').setAttribute('disabled', 'disabled');
     }
 }
 
-(function ($) {
-    $("#stationName").on("change paste keyup", function (e) {
+(function () {
+    document.getElementById('stationName').addEventListener('change', function (e) {
+        filterStations(this.value);
+    });
+    document.getElementById('stationName').addEventListener('paste', function (e) {
+        filterStations(this.value);
+    });
+    document.getElementById('stationName').addEventListener('keyup', function (e) {
         filterStations(this.value);
     });
 
-    $('.btn').click(function () {
-        changeStationNameFilterText($('#stationName').val() + this.textContent);
+    Array.from(document.getElementsByClassName('btn')).forEach(function (el) {
+        el.addEventListener('click', function () {
+            var currentText = document.getElementById('stationName').value;
+            changeStationNameFilterText(currentText + this.textContent);
+        });
     });
-    $('.backspaceBtn').click(function () {
-        var currentText = $('#stationName').val();
+    
+    document.querySelector('.backspaceBtn').addEventListener('click', function () {
+        var currentText = document.getElementById('stationName').value;
         changeStationNameFilterText(currentText.substring(0, currentText.length - 1));
-
     });
+
     changeStationNameFilterText("");
-})(jQuery);
+})();
