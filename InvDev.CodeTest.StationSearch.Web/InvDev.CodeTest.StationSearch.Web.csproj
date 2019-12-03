@@ -174,7 +174,6 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Scripts\script.js" />
-    <Content Include="Scripts\script.outdated.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InvDev.CodeTest.StationSearch.Service\InvDev.CodeTest.StationSearch.Service.csproj">
