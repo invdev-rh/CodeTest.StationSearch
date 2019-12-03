@@ -1,7 +1,7 @@
 InvDev Coding Test - Station Search
 
 This is a badly written application which follows none of the practices we would look for in a Dev.
-A dev candidate should to either describe changes they would make or even do some of the changes.
+A Dev candidate should to either describe changes they would make or even do some of the changes.
 
 Areas to consider:
 * Clean code!
